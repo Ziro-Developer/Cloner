@@ -1,0 +1,73 @@
+import os 
+os.system("pip install discord.py==1.7.3")
+import discord
+import asyncio
+import platform
+from colorama import Fore, Style
+from serverclone import Clone
+from pystyle import Colors, Colorate, Center, Write
+
+client = discord.Client()
+os.system("title AiZeR Cloner ")
+os.system("cls")
+
+def clear_console():
+    """Clears the console screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("title AiZeR Cloner ^| Authentication & mode con: cols=120 lines=30")
+
+clear_console()
+aizer = f""" 
+██╗   ██╗██╗  ██╗ ██████╗ ███╗   ██╗ ██████╗ ██╗    ██╗
+██║   ██║██║  ██║██╔═══██╗████╗  ██║██╔═══██╗██║    ██║
+██║   ██║███████║██║   ██║██╔██╗ ██║██║   ██║██║ █╗ ██║
+╚██╗ ██╔╝██╔══██║██║   ██║██║╚██╗██║██║   ██║██║███╗██║
+ ╚████╔╝ ██║  ██║╚██████╔╝██║ ╚████║╚██████╔╝╚███╔███╔╝
+  ╚═══╝  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚══╝╚══╝  
+        DEV - Ziro
+        SERVER : discord.gg/uhqnow
+"""
+
+print(Colorate.Vertical(Colors.red_to_purple, Center.XCenter(aizer)))
+
+token = input(Fore.LIGHTRED_EX + '[+] TOKEN: ')
+clear_console()
+print(Colorate.Vertical(Colors.red_to_purple, Center.XCenter(aizer)))
+gfid = int(input(Fore.LIGHTRED_EX + '[+] SERVER TO CLONE ID: '))
+g2id = int(input(Fore.LIGHTRED_EX + '[+] DESTINATION SERVER ID: '))
+
+@client.event
+async def on_ready():
+    clear_console()
+    print(Colorate.Vertical(Colors.red_to_purple, Center.XCenter(aizer)))
+    print("\033[95m---------------------------")
+    print("\033[92mLogged In as:", client.user)
+    print("\033[92mJoin .GG/Nukers")
+    print("\033[92mAiZeR Cloner V2")
+    print("\033[95m---------------------------")
+    await asyncio.sleep(4)
+
+    await client.change_presence(activity=discord.Game(name="AIZER CLONER <3"))
+
+    gfrm = client.get_guild(gfid)
+    gto = client.get_guild(g2id)
+
+    clear_console()
+    print(Colorate.Vertical(Colors.red_to_purple, Center.XCenter(aizer)))
+    await Clone.guild_edit(gto, gfrm)
+    await Clone.roles_delete(gto)
+    await Clone.channels_delete(gto)
+    await Clone.roles_create(gto, gfrm)
+    await Clone.categories_create(gto, gfrm)
+    await Clone.channels_create(gto, gfrm)
+    print(f"""{Fore.GREEN}
+            ┏┓┓ ┏┓┳┓┏┓┳┓
+            ┃ ┃ ┃┃┃┃┣ ┃┃
+            ┗┛┗┛┗┛┛┗┗┛┻┛
+            DEV     -  Aizer.4sure#0                                          
+    {Style.RESET_ALL}""")
+
+    await asyncio.sleep(5)
+    await client.close()
+
+client.run(token, bot=False)
